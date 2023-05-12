@@ -11,10 +11,10 @@
 /*************Interfacing Macros ***************/
 
 /*Controllers' different buses*/
-#define RCC_AHB1 1
-#define RCC_AHB2 2
-#define RCC_APB1 3
-#define RCC_APB2 4
+#define RCC_AHB1     1
+#define RCC_AHB2     2
+#define RCC_APB1     3
+#define RCC_APB2     4
 
 /*This Enum contains different Error states*/
 typedef enum
