@@ -17,6 +17,7 @@ typedef struct
 	u32 PUPDR    ;         //this register is to select whether pull up or down input
 	u32 IDR      ;         //this register is to get the value of input pins
 	u32 ODR      ;         //this register is to set the value of output pins
+    u32 BSRR     ;         //this reg is to set/reset
 }GPIO_REG_t;
 
 

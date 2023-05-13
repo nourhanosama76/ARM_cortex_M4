@@ -69,10 +69,41 @@ void GPIO_voidInitOutputPin(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8PinTy
 	}
 }
 
-//void GPIO_voidInitInputPin(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8PullMode)
-//{
-//
-//}
+void GPIO_voidInitInputPin(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8PullMode)
+{
+	switch (Copy_u8PortID)
+	{
+	case GPIO_PORTA :
+
+		/*configure pin to be input*/
+		/*mode register*/
+		GPIOA->MODER &= (~(0b11 << (Copy_u8PinID*2)));
+
+		/*configure pull mode*/
+		GPIOA->PUPDR &= (~(0b11 << (Copy_u8PinID*2)));
+		GPIOA->PUPDR |= (Copy_u8PinID <<(Copy_u8PinID*2));
+		break ;
+
+	case GPIO_PORTB :
+
+		GPIOB->MODER &= (~(0b11 << (Copy_u8PinID*2)));
+
+		/*configure pull mode*/
+		GPIOB->PUPDR &= (~(0b11 << (Copy_u8PinID*2)));
+		GPIOB->PUPDR |= (Copy_u8PinID <<(Copy_u8PinID*2));
+		break ;
+
+	case GPIO_PORTC :
+
+		GPIOC->MODER &= (~(0b11 << (Copy_u8PinID*2)));
+
+		/*configure pull mode*/
+		GPIOC->PUPDR &= (~(0b11 << (Copy_u8PinID*2)));
+		GPIOC->PUPDR |= (Copy_u8PinID <<(Copy_u8PinID*2));
+		break ;
+    }
+
+}
 
 void GPIO_voidSetOutputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8Value)
 {
@@ -93,10 +124,91 @@ void GPIO_voidSetOutputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8V
      }
 }
 
-//u8 GPIO_voidSetInputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID)
-//{
-//
-//}
+
+u8 GPIO_voidSetInputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID)
+{
+	/*local variable to store the value of input pin*/
+	u8 Local_u8InputPinValue ;
+
+	switch (Copy_u8PortID)
+	{
+	case GPIO_PORTA :
+		Local_u8InputPinValue = (GET_BIT(GPIOA->IDR , Copy_u8PinID));
+		break ;
+
+	case GPIO_PORTB :
+		Local_u8InputPinValue = (GET_BIT(GPIOB->IDR , Copy_u8PinID));
+		break ;
+
+	case GPIO_PORTC :
+		Local_u8InputPinValue = (GET_BIT(GPIOC->IDR , Copy_u8PinID));
+		break ;
+	}
+
+	return Local_u8InputPinValue ;
+
+}
 
 
+void GPIO_voidSetOutputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8Value)
+{
+	u32 Local_u32RegisterValue ;
+	switch (Copy_u8PortID)
+	{
+	case GPIO_PORTA :
+		switch (Copy_u8Value){
+		/*set pin value */
+		/*access bits from 0 to 15*/
 
+		case GPIO_OUTPUT_HIGH:
+			Local_u32RegisterValue = 1<<Copy_u8PinID ;
+			break;
+
+			/*set pin value */
+			/*access bits from 16 to 31*/
+		case GPIO_OUTPUT_LOW:
+			Local_u32RegisterValue = 1<<(Copy_u8PinID+16);
+			break;
+		}
+		GPIOA->BSRR = Local_u32RegisterValue ;
+		break ;
+
+	case GPIO_PORTB :
+		switch (Copy_u8Value){
+		/*set pin value */
+		/*access bits from 0 to 15*/
+
+		case GPIO_OUTPUT_HIGH:
+			Local_u32RegisterValue = 1<<Copy_u8PinID ;
+			break;
+
+			/*set pin value */
+			/*access bits from 16 to 31*/
+		case GPIO_OUTPUT_LOW:
+			Local_u32RegisterValue = 1<<(Copy_u8PinID+16);
+			break;
+		}
+		GPIOB->BSRR = Local_u32RegisterValue ;
+		break ;
+
+	case GPIO_PORTC :
+		switch (Copy_u8Value){
+		/*set pin value */
+		/*access bits from 0 to 15*/
+
+		case GPIO_OUTPUT_HIGH:
+			Local_u32RegisterValue = 1<<Copy_u8PinID ;
+			break;
+
+			/*set pin value */
+			/*access bits from 16 to 31*/
+		case GPIO_OUTPUT_LOW:
+			Local_u32RegisterValue = 1<<(Copy_u8PinID+16);
+			break;
+		}
+		GPIOC->BSRR = Local_u32RegisterValue ;
+		break ;
+
+	}
+
+}

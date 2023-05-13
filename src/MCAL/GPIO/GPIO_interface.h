@@ -41,5 +41,13 @@ void GPIO_voidSetOutputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8V
 /*get the value of any input pin*/
 u8 GPIO_voidSetInputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID);
 
+void GPIO_voidSetOutputPinValue(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8Value);
+
+/*TO-DO*/
+void GPIO_voidInitOutputPort(u8 Copy_u8PortID ,u8 Copy_u8PortType , u8 Copy_u8PortSpeed);
+
+void GPIO_voidSetOutPortValue(u8 Copy_u8PortID , u16 Copy_u16PoetValue);
+
+void GPIO_voidSetAlternativeFunction(u8 Copy_u8PortID , u8 Copy_u8PinID , u8 Copy_u8Value , u8 Copy_u8AlternativeFunction);
 
 #endif /* MCAL_GPIO_GPIO_INTERFACE_H_ */
